@@ -1,0 +1,32 @@
+.container__completed {
+  margin-bottom: 50px;
+}
+
+.btn__form--submit {
+  color: aliceblue;
+}
+
+.priority__btns {
+  display: flex !important;
+  gap: 50px !important;
+}
+
+.btn_low--active {
+  background-color: #7bf03d;
+  color: black;
+  scale: 1.2;
+}
+
+.btn_medium--active {
+  background-color: #e8f051;
+  color: black;
+
+  scale: 1.2;
+}
+
+.btn__high--active {
+  background-color: #f3080b;
+  color: black;
+
+  scale: 1.2;
+}
