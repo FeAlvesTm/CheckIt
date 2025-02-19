@@ -16,8 +16,10 @@
 .container__completed {
   margin-bottom: 50px;
 }
+
 .task__progress--opt-1 {
   text-align: center;
+  z-index: 9999;
 }
 
 .priority__low {
@@ -85,13 +87,20 @@
 }
 
 .carousel-item {
-  flex-shrink: 0; /* Impede que as imagens encolham */
+  flex-shrink: 0;
 }
-/* Estilo das imagens */
+.carousel-item img.selected {
+  box-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 204, 1, 0.822),
+    0 0 10px 5px rgba(255, 187, 0, 0.637); /* Gradiente dourado */
+  border-radius: 10px;
+  transition: border-image 0.3s ease;
+}
+
 .carousel-item img {
-  width: 170px !important; /* Força a largura para 180px */
-  height: 160px !important; /* Ajusta a altura automaticamente */
-  max-width: 100% !important; /* Evita que o max-width esteja interferindo */
+  margin-left: 5px;
+  width: 165px !important;
+  height: 160px !important;
+  max-width: 100% !important;
   object-fit: cover;
   border-radius: 10px;
   cursor: pointer;

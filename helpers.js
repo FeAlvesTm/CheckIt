@@ -1,5 +1,5 @@
 export const overlayfadeOut = function () {
-  const overlay = document.querySelector(".form__overlay"); // 
+  const overlay = document.querySelector(".form__overlay");
   let opacity = 1;
   const fadeOutInterval = setInterval(() => {
     opacity -= 0.05;
@@ -16,7 +16,6 @@ export const initEvents = function () {
   updateCarousel();
   addToggleDropdown();
   formActiveBtn();
-  updateCarousel();
   formHelper();
   getImg();
 };
@@ -61,9 +60,6 @@ const formActiveBtn = function () {
     e.preventDefault();
     const btn = e.target;
 
-    console.log(e.target);
-    console.log("a");
-
     const priorityBtns = priorityBtnsContainer.querySelectorAll(
       ".btn_low, .btn_medium, .btn__high"
     );
@@ -80,6 +76,7 @@ const formActiveBtn = function () {
     btn.classList.toggle(`${btn.classList[0]}--active`);
   });
 };
+
 export const cleanBtns = function () {
   const priorityBtnsContainer = document.querySelector(".priority__btns");
   const priorityBtns = priorityBtnsContainer.querySelectorAll(
@@ -116,7 +113,6 @@ export const getPriority = function () {
 
 export const getDate = function () {
   let today = new Date();
-
   const months = [
     "Jan",
     "Feb",
@@ -131,29 +127,23 @@ export const getDate = function () {
     "Nov",
     "Dec",
   ];
-
   const day = today.getDate();
-  const month = months[today.getMonth()]; // Pega o nome do mês em formato abreviado
+  const month = months[today.getMonth()];
   const year = today.getFullYear();
-
-  // Formata a data como "nov 10, 2024"
   const formattedDate = `${month} ${day}, ${year}`;
-
   return formattedDate;
 };
 
-export let selectedImg = ""; // Variável global para armazenar a imagem selecionada
+export let selectedImg = "";
 
 export const getImg = function () {
   const carousel = document.querySelector(".carousel");
 
   carousel.addEventListener("click", function (e) {
     e.preventDefault();
-
     const fullImgSrc = e.target.src;
-    selectedImg = fullImgSrc.split("/").slice(3).join("/"); // Armazenando o valor da imagem
-
-    console.log(selectedImg); // Exibindo o caminho relativo no console
+    selectedImg = fullImgSrc.split("/").slice(3).join("/");
+    console.log(selectedImg);
   });
 };
 
@@ -165,13 +155,24 @@ const updateCarousel = function () {
   const totalItems = items.length / 3;
   let currentIndex = 0;
 
+  track.addEventListener("click", getSelectedImg);
+
+  function getSelectedImg(e) {
+    const images = document.querySelectorAll(".carousel-item img");
+    const clickedImage = e.target;
+    if (!clickedImage.classList.contains("selected")) {
+      images.forEach((img) => img.classList.remove("selected"));
+    }
+    clickedImage.classList.toggle("selected");
+    console.log(clickedImage);
+  }
+
   function updateTransform() {
     track.style.transform = `translateX(-${100 * currentIndex}%)`;
   }
 
   prevButton.addEventListener("click", function () {
     currentIndex--;
-    console.log(currentIndex);
     if (currentIndex < 0) {
       currentIndex = totalItems - 1;
       updateTransform();
@@ -182,7 +183,6 @@ const updateCarousel = function () {
 
   nextButton.addEventListener("click", function () {
     currentIndex++;
-    console.log(currentIndex);
     if (currentIndex >= totalItems) {
       currentIndex = 0;
       updateTransform();
@@ -192,14 +192,65 @@ const updateCarousel = function () {
   });
 };
 
-export const createTaskHTML = (title, description, priority, date, img) => {
+export const createTaskHTML = (
+  title,
+  description,
+  priority,
+  date,
+  img,
+  section
+) => {
   const formattedPriority =
     priority && typeof priority === "string"
       ? priority.toLowerCase()
       : "default";
 
-  return `
+  if (section !== "in__review--section") {
+    return `
     <div class="w-layout-blockcontainer main__container--2 w-container">
+      <div class="w-layout-blockcontainer main__content--2 w-container">
+        <div class="w-layout-blockcontainer container-8 w-container"></div>
+        <div class="w-layout-blockcontainer header__in--review w-container">
+          <div class="div-block-2">
+            <div class="priority__progress priority__${formattedPriority}">
+              ${priority}
+            </div>
+            <div class="date__progress">
+              <span class="text-span-2"> </span>${date}
+            </div>
+          </div>
+          <div class="div-block-3">
+            <div class="button__opt--in--progress w-dropdown">
+              <div class="dropdown-toggle w-dropdown-toggle" aria-expanded="false" role="button">
+                <div class="text-block"></div>
+              </div>
+              <nav class="task__progress--opt w-dropdown-list">
+                <a href="#" class="task__progress--opt-1 w-dropdown-link">Favorite</a>
+
+                <a href="#" class="task__progress--opt-1 w-dropdown-link">Delete</a>
+                <a href="#" class="task__progress--opt-1 w-dropdown-link">Edit</a>
+                <a href="#" class="task__progress--opt-1 w-dropdown-link" id="move-to-finished">Mover para Concluído</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div class="w-layout-blockcontainer in__progress--img---container w-container">
+          <img src="${img}" loading="lazy" alt="" class="in__progress-img" />
+        </div>
+        <div class="w-layout-blockcontainer in__progress--title w-container">
+          <h3 class="task__progress-title">${title}</h3>
+        </div>
+        <div class="w-layout-blockcontainer in__progress-description w-container">
+          <div class="task__progress-description">${description}</div>
+        </div>
+      </div>
+    </div>
+  `;
+  } else {
+    return `<div class="w-layout-blockcontainer main__container--2 w-container">
+  <div class="w-layout-blockcontainer review__overview w-container">
+              <h1 contenteditable="true" class="heading-4">Problem<br />Overview</h1>
+            </div>
       <div class="w-layout-blockcontainer main__content--2 w-container">
         <div class="w-layout-blockcontainer container-8 w-container"></div>
         <div class="w-layout-blockcontainer header__in--review w-container">
@@ -234,25 +285,11 @@ export const createTaskHTML = (title, description, priority, date, img) => {
           <div class="task__progress-description">${description}</div>
         </div>
       </div>
-    </div>
-  `;
-};
-export function insertTaskHTML(section, taskHTML) {
-  let sectionElement;
-
-  switch (section) {
-    case "todo__section":
-      sectionElement = document.querySelector(".todo__section");
-      break;
-    case "in__progress-section":
-      sectionElement = document.querySelector(".in__progress-section");
-      break;
-    case "in__review--section":
-      sectionElement = document.querySelector(".in__review--section");
-      break;
-    default:
-      return;
+    </div>`;
   }
+};
 
-  sectionElement.insertAdjacentHTML("beforeend", taskHTML);
-}
+export const insertTaskHTML = function (section, taskHTML) {
+  const sectionEl = document.querySelector(`.${section}`);
+  sectionEl.insertAdjacentHTML("beforeend", taskHTML);
+};
