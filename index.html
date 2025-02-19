@@ -192,8 +192,8 @@
           <div class="div__todo--topic">
             <a
               data-w-id="b2c053c4-3b8a-ba3a-cc47-2a28b5e6f3c2"
-              href="#"
-              class="btn__add--task w-button"
+              data-section="todo__section"
+              class="btn__add--task btn__add--task--2 btn__add--task--todo w-button"
               >+</a
             >
             <div
@@ -298,8 +298,8 @@
           <div class="div__in--progress--topic">
             <a
               data-w-id="389ee6ec-69ed-ef35-8758-93a23c0d7c85"
-              href="#"
-              class="btn__add--task w-button"
+              data-section="in__progress-section"
+              class="btn__add--task btn__add--task--2 btn__add--task--progress w-button"
               >+</a
             >
             <div
@@ -406,8 +406,8 @@
           <div class="div__in--review--topic">
             <a
               data-w-id="80b02be7-6349-58b3-4f4b-f460d5272d91"
-              href="#"
-              class="btn__add--task w-button"
+              data-section="in__review--section"
+              class="btn__add--task btn__add--task--2 btn__add--task--review w-button"
               >+</a
             >
             <div
@@ -533,8 +533,8 @@
               <div class="w-layout-blockcontainer btn__new--task w-container">
                 <a
                   data-w-id="7e0f752b-3988-5160-e436-2e6e2a0f385c"
-                  href="#"
-                  class="btn__add--new--task w-button"
+                  data-section="todo__section"
+                  class="btn__add--new--task btn__add--task--2 w-button"
                   ><span class="text-span">+ </span>Add new task</a
                 >
               </div>
@@ -593,6 +593,12 @@
                         class="task__progress--opt-1 w-dropdown-link"
                         tabindex="0"
                         >Edit</a
+                      ><a
+                        href="#"
+                        class="task__progress--opt-1 w-dropdown-link"
+                        tabindex="0"
+                        id="move-to-finished"
+                        >Mover para Concluído</a
                       >
                     </nav>
                   </div>
@@ -659,15 +665,21 @@
                   >
                     <a
                       href="#"
-                      class="task__review--opt-1 w-dropdown-link"
+                      class="task__progress--opt-1 w-dropdown-link"
                       tabindex="0"
                       >Delete</a
                     ><a
-                      data-w-id="3d659d09-c971-b290-4b21-b1726db244eb"
+                      data-w-id="4fe991ce-97f3-d3aa-2ed1-06ad70cc964f"
                       href="#"
-                      class="task__review--opt-2 w-dropdown-link"
+                      class="task__progress--opt-1 w-dropdown-link"
                       tabindex="0"
                       >Edit</a
+                    ><a
+                      href="#"
+                      class="task__progress--opt-1 w-dropdown-link"
+                      tabindex="0"
+                      id="move-to-finished"
+                      >Mover para Concluído</a
                     >
                   </nav>
                 </div>
@@ -726,20 +738,226 @@
             <h2 class="heading-6">Select the priority level</h2>
           </div>
           <div class="w-layout-blockcontainer priority__btns w-container">
-            <a class="btn_low w-button">Low</a
+            <a class="btn_low w-button">low</a
             ><a class="btn_medium w-button">medium</a
             ><a class="btn__high w-button">high</a>
           </div>
-          <textarea
-            id="field-2"
-            name="field-2"
-            maxlength="5000"
-            data-name="Field 2"
-            placeholder="Put the description here"
-            required
-            class="form__task--description w-input"
-          ></textarea
-          ><button type="button" class="btn__form--submit" value="Submit">
+
+          <label class="image__select--label" for="image-select"
+            >Select a image for your task 🙂‍↔️</label
+          >
+          <div class="image__select-container">
+            <button class="carousel-btn prev">‹</button>
+            <div class="carousel">
+              <div class="carousel-item">
+                <img
+                  src="img/img-1.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-2.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-3.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-4.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-5.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-6.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-7.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-8.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-9.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-10.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-11.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-12.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-13.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-14.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-15.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-16.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-17.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-18.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-19.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-20.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-21.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-22.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-23.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/img-24.png"
+                  alt="Image 1"
+                  class="selectable-image"
+                  data-image="image1.jpg"
+                />
+              </div>
+            </div>
+            <button class="carousel-btn next">›</button>
+          </div>
+
+          <input type="hidden" name="selected-image" id="selected-image" />
+          <div class="form__task--description--container">
+            <textarea
+              id="field-2"
+              name="field-2"
+              maxlength="5000"
+              data-name="Field 2"
+              placeholder="Put the description here"
+              required
+              class="form__task--description w-input"
+            ></textarea>
+          </div>
+          <button type="button" class="btn__form--submit" value="Submit">
             Submit
           </button>
           <div>

@@ -1,11 +1,45 @@
+.w-webflow-badge {
+  display: none !important;
+}
+
+.main__container {
+  margin-bottom: 5%;
+}
+.in__progress-section,
+.todo__section,
+.in__review--section {
+  max-height: 720px;
+  overflow-y: auto;
+  padding-right: 5px;
+  justify-content: flex-start;
+}
 .container__completed {
   margin-bottom: 50px;
 }
-
-.btn__form--submit {
-  color: aliceblue;
+.task__progress--opt-1 {
+  text-align: center;
 }
 
+.priority__low {
+  color: #7bf03d;
+  background-color: rgba(124, 240, 61, 0.425);
+}
+.priority__medium {
+  color: #e8f051;
+  background-color: #e8f05156;
+}
+.priority__high {
+  color: #f3080b;
+  background-color: #f3080c6b;
+}
+
+.overlay {
+}
+.form__container {
+  max-width: 80%; /* Define a largura máxima do formulário */
+  max-height: 90% !important;
+  height: 70% !important;
+}
 .priority__btns {
   display: flex !important;
   gap: 50px !important;
@@ -29,4 +63,81 @@
   color: black;
 
   scale: 1.2;
+}
+.image__select--label {
+  color: aliceblue;
+  font-weight: 600;
+}
+.image__select-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 540px !important;
+  height: 180px;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 10px;
+  width: 100%;
+}
+
+.carousel-item {
+  flex-shrink: 0; /* Impede que as imagens encolham */
+}
+/* Estilo das imagens */
+.carousel-item img {
+  width: 170px !important; /* Força a largura para 180px */
+  height: 160px !important; /* Ajusta a altura automaticamente */
+  max-width: 100% !important; /* Evita que o max-width esteja interferindo */
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.carousel-item img:hover {
+  transform: scale(1.1);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 49%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10; /* Garante que fique sobre os itens do carrossel */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prev {
+  left: 40px; /* Ajuste para mover o botão um pouco mais para fora */
+}
+
+.next {
+  right: 40px; /* Ajuste para mover o botão um pouco mais para fora */
+}
+
+.form__task--description--container {
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}
+.form__task--description {
+  width: 100%;
+  margin: 0;
+}
+.btn__form--submit {
+  color: aliceblue;
 }
