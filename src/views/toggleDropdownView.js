@@ -4,13 +4,18 @@ class ToggleDropdownView extends View {
   constructor() {
     super();
     this.allDropdowns = document.querySelectorAll(".w-dropdown");
+    this.contentSection = document.querySelector(".content");
   }
 
-  addDropdownToggle(handler) {
-    this.allDropdowns.forEach((dropdown) => {
-      dropdown.addEventListener("click", (event) => {
-        handler(event);
-      });
+  addDropdownToggle() {
+    this.contentSection.addEventListener("click", (event) => {
+      console.log(this.contentSection);
+      console.log(event.target);
+
+      if (event.target.closest(".w-dropdown")) {
+        console.log("tome");
+        this.ToggleDropdown(event);
+      }
     });
   }
 
@@ -47,10 +52,6 @@ class ToggleDropdownView extends View {
 
       console.log("Estado do dropdown:", isOpen ? "Fechado" : "Aberto");
     }
-  }
-
-  bindEvents() {
-    this.addDropdownToggle(this.ToggleDropdown.bind(this));
   }
 }
 

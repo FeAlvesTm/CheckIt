@@ -3,9 +3,10 @@ import View from "./view.js";
 class TaskView extends View {
   constructor() {
     super();
+    this.editBtn = document.querySelector(".button__opt--created--task");
   }
   createTaskHTML(taskData, taskInfo) {
-    const { title, description, img, section, priority } = taskData;
+    const { formTitle, description, img, section, priority } = taskData;
     const { date, index } = taskInfo;
     const formattedPriority =
       priority && typeof priority === "string"
@@ -44,7 +45,7 @@ class TaskView extends View {
             <img src="${img}" loading="lazy" alt="" class="in__progress-img" />
           </div>
           <div class="w-layout-blockcontainer in__progress--title w-container">
-            <h3 class="task__progress-title">${title.value}</h3>
+            <h3 class="task__progress-title">${formTitle}</h3>
           </div>
           <div class="w-layout-blockcontainer in__progress-description w-container">
             <div class="task__progress-description">${description}</div>
@@ -86,7 +87,7 @@ class TaskView extends View {
             <img src="${img}" loading="lazy" alt="" class="in__progress-img" />
           </div>
           <div class="w-layout-blockcontainer in__progress--title w-container">
-            <h3 class="task__progress-title">${title}</h3>
+            <h3 class="task__progress-title">${formTitle}</h3>
           </div>
           <div class="w-layout-blockcontainer in__progress-description w-container">
             <div class="task__progress-description">${description}</div>

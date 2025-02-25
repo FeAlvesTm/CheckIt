@@ -7,9 +7,9 @@ class TitleEditView extends View {
     this.btnEditTitle = document.querySelector(".button__header--edit");
   }
 
-  addTitleEdit(handler) {
+  addTitleEdit() {
     this.btnEditTitle.addEventListener("click", () => {
-      handler();
+      this.handleTitleEdit();
     });
   }
 
@@ -22,10 +22,6 @@ class TitleEditView extends View {
     this.title.addEventListener("blur", () => {
       this.title.contentEditable = false;
     });
-  }
-
-  bindEvents() {
-    this.addTitleEdit(this.handleTitleEdit.bind(this));
   }
 }
 export default new TitleEditView();

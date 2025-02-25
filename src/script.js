@@ -20,17 +20,18 @@ class CheckIt {
 
   placeEvents() {
     updateCarouselView.updateCarousel();
-    toggleSectionView.bindEvents();
-    titleEditView.bindEvents();
-    toggleDropdownView.bindEvents();
+    toggleSectionView.addToggleSection();
+    titleEditView.addTitleEdit();
+    toggleDropdownView.addDropdownToggle();
+    addBtnsView.handleAddBtns();
 
     formView.addGetFormActiveBtn();
     formView.addGetImg();
+
     formView.addSubmitBtnHandler(
       taskView.createTaskHTML,
       model.getTaskInfo.bind(model)
     );
-    addBtnsView.handleAddBtns();
   }
 }
 

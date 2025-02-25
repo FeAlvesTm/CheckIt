@@ -11,9 +11,9 @@ class ToggleSectionView extends View {
     this.content = document.querySelector(".content");
   }
 
-  addToggleSection(handler) {
+  addToggleSection() {
     this.toggleSectionBtn.addEventListener("click", (event) => {
-      handler(event);
+      this.toggleSection(event);
     });
   }
 
@@ -34,10 +34,6 @@ class ToggleSectionView extends View {
     }
 
     this.toggleSectionBtn.classList.toggle("button-__completed--header-active");
-  }
-
-  bindEvents() {
-    this.addToggleSection(this.toggleSection.bind(this));
   }
 }
 

@@ -3,7 +3,7 @@ import View from "./view.js";
 class FormView extends View {
   constructor() {
     super();
-    this.title = document.querySelector(".form__task--title");
+    this.formTitle = document.querySelector(".form__task--Title");
     this.taskDescription = document.querySelector(".form__task--description");
     this.overlay = document.querySelector(".form__overlay");
 
@@ -31,7 +31,7 @@ class FormView extends View {
   addSubmitBtnHandler(createTaskHTML, taskInfos) {
     this.submitButton.addEventListener("click", () => {
       const taskData = {
-        title: this.title.value,
+        formTitle: this.formTitle.value,
         description: this.taskDescription.value,
         img: this.selectedImg,
         section: this.currentSelectedSection,
@@ -45,12 +45,12 @@ class FormView extends View {
   }
 
   insertTask(taskHTML, taskData) {
-    const { title, description, img, priority } = taskData;
+    const { formTitle, description, img, priority } = taskData;
     let missingFields = [];
 
-    console.log(title, description, img, priority);
+    console.log(formTitle, description, img, priority);
 
-    if (!title) missingFields.push("Title");
+    if (!formTitle) missingFields.push("Title");
     if (!description) missingFields.push("Task Description");
     if (!priority) missingFields.push("Priority");
     if (!img) missingFields.push("Image");
@@ -128,7 +128,7 @@ class FormView extends View {
         clearInterval(fadeOutInterval);
         this.overlay.style.display = "none";
       }
-    }, 50);
+    }, 25);
   };
 
   cleanBtns() {

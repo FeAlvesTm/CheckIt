@@ -13,6 +13,20 @@
   padding-right: 5px;
   justify-content: flex-start;
 }
+
+::-webkit-scrollbar {
+  width: 10px; /* Para rolagem vertical */
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #747474, #a0a0a0, #d8d8d8);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ffd700, #fcd848, #ffb303);
+}
+
 .container__completed {
   margin-bottom: 50px;
 }
