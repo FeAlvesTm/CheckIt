@@ -12,8 +12,6 @@ class addBtnsView extends View {
         const sectionClass = btn.getAttribute("data-section");
         View.setCurrentclass(sectionClass);
         View.setCurrentSection(document.querySelector(`.${sectionClass}`));
-        console.log(this.currentSelectedSection);
-        console.log(this.sectionClass);
 
         this.form.addEventListener("click", (event) => {
           event.stopPropagation();

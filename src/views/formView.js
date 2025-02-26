@@ -40,7 +40,6 @@ class FormView extends View {
       const taskInfo = taskInfos();
       const taskHTML = createTaskHTML(taskData, taskInfo);
       this.insertTask(taskHTML, taskData);
-      this.resetForm();
     });
   }
 
@@ -70,10 +69,12 @@ class FormView extends View {
       if (sectionClass === "in__review--section") {
         this.inReviewModel.remove();
       }
+
+      const section = View.getCurrentSection();
+      console.log(section);
+      section.insertAdjacentHTML("beforeend", taskHTML);
+      this.resetForm();
     }
-    const section = View.getCurrentSection();
-    console.log(section);
-    section.insertAdjacentHTML("beforeend", taskHTML);
   }
 
   handleFormActiveBtn(event) {

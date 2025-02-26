@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+.main__content--2 {
+  max-width: 100%;
+}
+
 .main__container {
   margin-bottom: 5%;
 }
@@ -36,11 +40,19 @@
 .in__progress-description,
 .todo___description {
   display: block;
+  word-wrap: break-word; /* Quebra palavras muito longas */
+  overflow-wrap: break-word; /* Funciona como fallback */
+  white-space: normal; /* Permite que o texto quebre */
 }
 
 .task__progress--opt-1 {
   text-align: center;
   z-index: 9999;
+}
+
+.field__in--editing {
+  border: solid 2px white;
+  border-radius: 10px;
 }
 
 .priority__low {

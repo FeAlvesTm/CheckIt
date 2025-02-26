@@ -24,6 +24,7 @@ class CheckIt {
     titleEditView.addTitleEdit();
     toggleDropdownView.addDropdownToggle();
     addBtnsView.handleAddBtns();
+    taskView.handleOptBtns();
 
     formView.addGetFormActiveBtn();
     formView.addGetImg();

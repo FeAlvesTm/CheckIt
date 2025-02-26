@@ -4,55 +4,61 @@ class ToggleDropdownView extends View {
   constructor() {
     super();
     this.allDropdowns = document.querySelectorAll(".w-dropdown");
-    this.contentSection = document.querySelector(".content");
   }
 
   addDropdownToggle() {
+    // Evento de clique na seção de conteúdo
     this.contentSection.addEventListener("click", (event) => {
-      console.log(this.contentSection);
-      console.log(event.target);
-
-      if (event.target.closest(".w-dropdown")) {
-        console.log("tome");
-        this.ToggleDropdown(event);
+      const dropdown = event.target.closest(".w-dropdown");
+      if (dropdown) {
+        this.ToggleDropdown(event, dropdown);
+      } else {
+        // Caso o clique seja fora do dropdown, feche todos os dropdowns
+        this.closeAllDropdowns();
       }
     });
   }
 
-  ToggleDropdown(event) {
-    if (event.target && event.target.classList.contains("w-dropdown-toggle")) {
-      const dropdown = event.target.closest(".w-dropdown");
-      this.list = dropdown.querySelector(".w-dropdown-list");
+  ToggleDropdown(event, dropdown) {
+    const dropdownToggle = dropdown.querySelector(".w-dropdown-toggle");
+    const dropdownList = dropdown.querySelector(".w-dropdown-list");
 
-      // Fecha todos os outros dropdowns
-      this.allDropdowns.forEach((dropdown) => {
-        if (dropdown !== dropdown) {
-          dropdown.classList.remove("w--open");
-          if (this.list) this.list.classList.remove("w--open");
-        }
-      });
+    // Alterna o estado do dropdown
+    const isOpen = dropdown.classList.contains("w--open");
 
-      // Alterna o estado do dropdown clicado
-      const isOpen = dropdown.classList.contains("w--open");
+    // Alterna a classe 'w--open' no dropdown e na lista
+    dropdown.classList.toggle("w--open", !isOpen);
+    dropdownList.classList.toggle("w--open", !isOpen);
 
-      dropdown.classList.toggle("w--open");
-      if (this.list) {
-        this.list.classList.toggle("w--open");
-      }
+    // Alterna o atributo aria-expanded
+    const ariaExpandedValue = isOpen ? "false" : "true";
+    dropdownToggle.setAttribute("aria-expanded", ariaExpandedValue);
 
-      // Define o atributo aria-expanded
-      event.target.setAttribute("aria-expanded", isOpen ? "false" : "true");
-
-      // Ajusta o z-index
-      if (isOpen) {
-        dropdown.style.zIndex = "";
-      } else {
-        dropdown.style.zIndex = "901";
-      }
-
-      console.log("Estado do dropdown:", isOpen ? "Fechado" : "Aberto");
+    // Ajusta o z-index
+    if (isOpen) {
+      dropdown.style.zIndex = "";
+    } else {
+      dropdown.style.zIndex = "901"; // Ajuste do z-index
     }
+
+    console.log("Estado do dropdown:", isOpen ? "Fechado" : "Aberto");
+  }
+
+  // Função para fechar todos os dropdowns
+  closeAllDropdowns() {
+    const allDropdowns = document.querySelectorAll(".w-dropdown");
+    allDropdowns.forEach((dropdown) => {
+      dropdown.classList.remove("w--open");
+      const list = dropdown.querySelector(".w-dropdown-list");
+      if (list) {
+        list.classList.remove("w--open");
+      }
+
+      const dropdownToggle = dropdown.querySelector(".w-dropdown-toggle");
+      if (dropdownToggle) {
+        dropdownToggle.setAttribute("aria-expanded", "false");
+      }
+    });
   }
 }
-
 export default new ToggleDropdownView();
