@@ -11,7 +11,33 @@ class View {
     this.contentSection = document.querySelector(".content");
     this.currentSelectedSection = "";
     this.sectionClass = "";
+
+    this.task = "";
   }
+  static TaskMissingFields = [];
+
+  static setTask(taskHTML) {
+    this.task = taskHTML;
+    console.log(taskHTML);
+  }
+
+  static getTask() {
+    return this.task;
+  }
+
+  static setTaskMissingFields(missingFields) {
+    this.TaskMissingFields.splice(0, this.TaskMissingFields.length);
+
+    missingFields.forEach((field) => {
+      this.TaskMissingFields.push(field);
+      console.log(this.TaskMissingFields);
+    });
+  }
+
+  static getTaskMissingFields() {
+    return this.TaskMissingFields;
+  }
+
   static setCurrentSection(section) {
     this.currentSelectedSection = section;
     console.log(this.currentSelectedSection);

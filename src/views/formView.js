@@ -1,3 +1,4 @@
+import taskView from "./taskView.js";
 import View from "./view.js";
 
 class FormView extends View {
@@ -7,13 +8,13 @@ class FormView extends View {
     this.taskDescription = document.querySelector(".form__task--description");
     this.overlay = document.querySelector(".form__overlay");
 
-    this.todoModel = document.querySelector(".main__container--1");
-    this.inProgressModel = document.querySelector(".main__container--2");
-    this.inReviewModel = document.querySelector(".main__container--3");
-
     this.formActiveBtn = "";
     this.priority = "";
     this.selectedImg = "";
+
+    this.todoModel = document.querySelector(".main__container--1");
+    this.inProgressModel = document.querySelector(".main__container--2");
+    this.inReviewModel = document.querySelector(".main__container--3");
   }
 
   addGetImg() {
@@ -28,53 +29,76 @@ class FormView extends View {
     });
   }
 
-  addSubmitBtnHandler(createTaskHTML, taskInfos) {
+  addSubmitBtnHandler(createTaskHTML, taskInfos, saveTaskHandler) {
     this.submitButton.addEventListener("click", () => {
-      const taskData = {
-        formTitle: this.formTitle.value,
-        description: this.taskDescription.value,
-        img: this.selectedImg,
-        section: this.currentSelectedSection,
-        priority: this.getPriority(),
-      };
       const taskInfo = taskInfos();
-      const taskHTML = createTaskHTML(taskData, taskInfo);
-      this.insertTask(taskHTML, taskData);
+      const { index, date } = taskInfo;
+
+      console.log(index);
+
+      const taskData = {
+        taskTitle: this.formTitle.value,
+        taskDescription: this.taskDescription.value,
+        taskImg: this.selectedImg,
+        taskSectionClass: View.getCurrentSectionClass(),
+        taskPriority: this.getPriority(),
+        taskId: `task-${index}`,
+      };
+
+      const { taskHTML, taskSectionClass } = createTaskHTML.bind(taskView)(
+        taskData,
+        taskInfo
+      );
+      console.log(taskHTML);
+      View.setTask(taskHTML);
+
+      this.insertTask(taskHTML, taskSectionClass);
+
+      const allTaskData = {
+        taskTitle: taskData.taskTitle,
+        taskDescription: taskData.taskDescription,
+        taskImg: taskData.taskImg,
+        taskSectionClass: taskData.taskSectionClass,
+        taskPriority: taskData.taskPriority,
+        taskId: taskData.taskId,
+        index: index,
+        date: date,
+      };
+
+      this.saveTaskHTML(saveTaskHandler, allTaskData);
     });
   }
 
-  insertTask(taskHTML, taskData) {
-    const { formTitle, description, img, priority } = taskData;
-    let missingFields = [];
+  saveTaskHTML(handler, allTaskData) {
+    handler(allTaskData);
+  }
 
-    console.log(formTitle, description, img, priority);
+  insertTask(taskHTML, taskSectionClass) {
+    const taskMissingFields = View.getTaskMissingFields();
+    if (taskMissingFields.length >= 1) return;
 
-    if (!formTitle) missingFields.push("Title");
-    if (!description) missingFields.push("Task Description");
-    if (!priority) missingFields.push("Priority");
-    if (!img) missingFields.push("Image");
-    console.log(missingFields);
+    console.log(taskSectionClass);
 
-    const sectionClass = View.getCurrentSectionClass();
-
-    if (missingFields.length > 0) {
-      alert(`The following fields are missing: ${missingFields.join(", ")}`);
-    } else {
-      if (sectionClass === "todo__section") {
-        this.todoModel.remove();
-      }
-      if (sectionClass === "in__progress-section") {
-        this.inProgressModel.remove();
-      }
-      if (sectionClass === "in__review--section") {
-        this.inReviewModel.remove();
-      }
-
-      const section = View.getCurrentSection();
-      console.log(section);
-      section.insertAdjacentHTML("beforeend", taskHTML);
-      this.resetForm();
+    let taskSection = "";
+    if (taskSectionClass === "todo__section") {
+      this.todoModel.remove();
+      taskSection = document.querySelector(".todo__section");
     }
+    if (taskSectionClass === "in__progress-section") {
+      this.inProgressModel.remove();
+      taskSection = document.querySelector(".in__progress-section");
+    }
+    if (taskSectionClass === "in__review--section") {
+      this.inReviewModel.remove();
+      taskSection = document.querySelector(".in__review--section");
+    }
+
+    console.log(taskSectionClass);
+    console.log(taskSection);
+
+    console.log(taskSection);
+    taskSection.insertAdjacentHTML("beforeend", taskHTML);
+    this.resetForm();
   }
 
   handleFormActiveBtn(event) {

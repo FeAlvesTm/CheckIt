@@ -7,21 +7,26 @@ class TitleEditView extends View {
     this.btnEditTitle = document.querySelector(".button__header--edit");
   }
 
-  addTitleEdit() {
+  addTitleEdit(titleEditHandler) {
     this.btnEditTitle.addEventListener("click", () => {
-      this.handleTitleEdit();
+      let newTitle = "";
+      this.title.contentEditable = true;
+      this.title.focus();
+
+      this.title.addEventListener("blur", () => {
+        this.title.contentEditable = false;
+
+        newTitle = this.title.textContent;
+        console.log(newTitle);
+
+        titleEditHandler(newTitle);
+      });
     });
   }
 
-  handleTitleEdit() {
-    {
-      this.title.contentEditable = true;
-      console.log("a");
-      this.title.focus();
-    }
-    this.title.addEventListener("blur", () => {
-      this.title.contentEditable = false;
-    });
+  getOldTitle() {
+    const title = this.title;
+    return title;
   }
 }
 export default new TitleEditView();
