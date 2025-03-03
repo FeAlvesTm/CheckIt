@@ -4,6 +4,7 @@ class TaskView extends View {
   constructor() {
     super();
     this.editBtn = document.querySelector(".button__opt--created--task");
+    this.topicsContainer = document.querySelector(".main__container");
   }
 
   createTaskHTML(taskData, taskInfo) {
@@ -222,6 +223,16 @@ class TaskView extends View {
 
   handleMoveBtn() {
     console.log("4444444444444444444444444444");
+  }
+
+  handleTaskOrder(taskOrderHandler) {
+    this.topicsContainer.addEventListener("click", (e) => {
+      if (!e.target.dataset.order) return;
+      const sorting = e.target.dataset.order;
+      const section = e.target.dataset.section;
+      console.log(sorting);
+      console.log(section);
+    });
   }
 }
 

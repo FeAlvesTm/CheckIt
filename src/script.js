@@ -21,8 +21,8 @@ class CheckIt {
 
   setup() {
     document.addEventListener("DOMContentLoaded", () => {
-      model.updateTitle(titleEditView.getOldTitle());
       this.placeEvents();
+      model.updateTitle(titleEditView.getOldTitle());
       model.loadTasks(formView.insertTask.bind(formView));
     });
   }
@@ -37,6 +37,7 @@ class CheckIt {
     toggleDropdownView.addDropdownToggle();
     addBtnsView.handleAddBtns();
     taskView.handleOptBtns(this.handlers);
+    taskView.handleTaskOrder();
 
     formView.addGetFormActiveBtn();
     formView.addGetImg();
@@ -48,4 +49,4 @@ class CheckIt {
   }
 }
 
-const CheckItApp = new CheckIt();
+new CheckIt();
