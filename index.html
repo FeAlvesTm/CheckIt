@@ -131,9 +131,13 @@
                 >
                   <a
                     href="#"
-                    class="header__btn--sort--date--opt--1 w-dropdown-link"
+                    data-order="Ascending"
+                    class="todo__btn--sort--date--opt--1 w-dropdown-link"
                     >Newest to oldest</a
-                  ><a href="#" class="header__btn--sort--date-2 w-dropdown-link"
+                  ><a
+                    href="#"
+                    data-order="Descending"
+                    class="todo__btn--sort--date-2 w-dropdown-link"
                     >Oldest to newest</a
                   >
                 </nav>
@@ -359,11 +363,15 @@
                   >
                     <a
                       href="#"
-                      class="progress__btn--sort--date--opt--1 w-dropdown-link"
+                      data-section="in__progress-section"
+                      data-order="Ascending"
+                      class="todo__btn--sort--date--opt--1 w-dropdown-link"
                       >Newest to oldest</a
                     ><a
                       href="#"
-                      class="progress__btn--sort--date-2 w-dropdown-link"
+                      data-section="in__progress-section"
+                      data-order="Descending"
+                      class="todo__btn--sort--date-2 w-dropdown-link"
                       >Oldest to newest</a
                     >
                   </nav>
@@ -467,9 +475,15 @@
                   >
                     <a
                       href="#"
+                      data-section="in__review--section"
+                      data-order="Ascending"
                       class="todo__btn--sort--date--opt--1 w-dropdown-link"
                       >Newest to oldest</a
-                    ><a href="#" class="todo__btn--sort--date-2 w-dropdown-link"
+                    ><a
+                      href="#"
+                      data-section="in__review--section"
+                      data-order="Descending"
+                      class="todo__btn--sort--date-2 w-dropdown-link"
                       >Oldest to newest</a
                     >
                   </nav>

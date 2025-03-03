@@ -5,6 +5,7 @@ class TaskView extends View {
     super();
     this.editBtn = document.querySelector(".button__opt--created--task");
     this.topicsContainer = document.querySelector(".main__container");
+    this.headerFilterBtn = document.querySelector(".header__filter--opt");
   }
 
   createTaskHTML(taskData, taskInfo) {
@@ -40,7 +41,7 @@ class TaskView extends View {
     let taskHTML = "";
 
     if (sectionClass === "in__review--section") {
-      taskHTML = `<div id="created__task--${index}" class="w-layout-blockcontainer main__container--2 w-container" data-task-id= "${taskId}">
+      taskHTML = `<div id="created__task--${index}" class="w-layout-blockcontainer ${taskSectionClass}-task main__container--2 w-container" data-task-id="${taskId}">
     <div class="w-layout-blockcontainer review__overview w-container">
                 <h1 contenteditable="true" class="heading-4">Problem<br />Overview</h1>
               </div>
@@ -84,7 +85,7 @@ class TaskView extends View {
       </div>`;
     } else {
       taskHTML = `
-      <div id="created__task--${index}" class="w-layout-blockcontainer main__container--2 w-container" data-task-id= "${taskId}">
+      <div id="created__task--${index}" class="w-layout-blockcontainer ${taskSectionClass}-task main__container--2 w-container" data-task-id="${taskId}">
         <div class="w-layout-blockcontainer main__content--1 main__content--2 w-container">
           <div class="w-layout-blockcontainer container-8 w-container"></div>
           <div class="w-layout-blockcontainer header__in--review w-container">
@@ -225,14 +226,38 @@ class TaskView extends View {
     console.log("4444444444444444444444444444");
   }
 
-  handleTaskOrder(taskOrderHandler) {
-    this.topicsContainer.addEventListener("click", (e) => {
-      if (!e.target.dataset.order) return;
-      const sorting = e.target.dataset.order;
-      const section = e.target.dataset.section;
-      console.log(sorting);
-      console.log(section);
-    });
+  handleTaskOrder(taskOrderHandler, insertTask) {
+    [this.topicsContainer, this.headerFilterBtn].forEach((el) =>
+      el.addEventListener("click", (e) => {
+        console.log(e.target);
+
+        if (!e.target.dataset.order) return;
+        const order = e.target.dataset.order;
+        const section = e.target.dataset.section;
+
+        console.log(section);
+        console.log(order);
+
+        if (!section) {
+          const allTasksNodelist = document.querySelectorAll(
+            ".main__container--2"
+          );
+          Array.from(allTasksNodelist).forEach((task) => task.remove());
+          taskOrderHandler(insertTask, order);
+
+          console.log(order);
+          console.log(section);
+        } else {
+          console.log("aaaaaaaaaaaaaaaaaaaaaaa");
+          const tasksInSection = document.querySelectorAll(`.${section}-task`);
+          Array.from(tasksInSection).forEach((task) => task.remove());
+          console.log(order);
+          console.log(tasksInSection);
+          console.log(section);
+          taskOrderHandler(insertTask, order, section);
+        }
+      })
+    );
   }
 }
 

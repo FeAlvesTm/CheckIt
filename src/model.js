@@ -55,6 +55,22 @@ class Model {
     return taskInfo;
   }
 
+  sortTasks(order, tasksArr) {
+    let sortedTasks = [...tasksArr];
+
+    if (order === "Descending") {
+      sortedTasks.sort((a, b) => a.index - b.index);
+      console.log(this.tasks);
+    }
+    if (order === "Ascending") {
+      sortedTasks.sort((a, b) => b.index - a.index);
+      console.log(this.tasks);
+    }
+
+    console.log(order);
+    return sortedTasks;
+  }
+
   deleteTask(taskId) {
     console.log(this.tasks);
 
@@ -98,14 +114,25 @@ class Model {
     localStorage.setItem("tasks", stringifiedTasks);
   }
 
-  loadTasks(loader) {
-    const parsedArrTask = JSON.parse(localStorage.getItem("tasks"));
-    if (!parsedArrTask) {
+  loadTasks(insertTask, order = null, section = null) {
+    if (!this.tasks) {
       console.log("no tasks");
       return;
     }
 
-    parsedArrTask.forEach((parsedTask) => {
+    let tasksToRender = [...this.tasks];
+
+    if (section) {
+      tasksToRender = tasksToRender.filter(
+        (task) => task.taskSectionClass === section
+      );
+    }
+
+    if (order) {
+      tasksToRender = this.sortTasks(order, tasksToRender);
+    }
+
+    tasksToRender.forEach((parsedTask) => {
       const {
         taskTitle,
         taskDescription,
@@ -118,9 +145,9 @@ class Model {
       } = parsedTask;
       const formattedPriority = taskPriority.toLowerCase();
       let task = "";
-
+      console.log(taskSectionClass);
       if (taskSectionClass === "in__review--section") {
-        task = `<div id="created__task--${index}" class="w-layout-blockcontainer main__container--2 w-container" data-task-id= "${taskId}">
+        task = `<div id="created__task--${index}" class="w-layout-blockcontainer ${taskSectionClass}-task main__container--2 w-container" data-task-id= "${taskId}">
       <div class="w-layout-blockcontainer review__overview w-container">
                   <h1 contenteditable="true" class="heading-4">Problem<br />Overview</h1>
                 </div>
@@ -136,18 +163,18 @@ class Model {
                 </div>
               </div>
               <div class="div-block-3">
-                <div class="button__opt--created--task w-dropdown">
-                  <div class="dropdown-toggle w-dropdown-toggle" aria-expanded="false" role="button">
-                    <div class="task-text-block text-block"></div>
-                  </div>
-                  <nav class="created__task--progress--opt w-dropdown-list">
-                    <a href="#" class="button__opt--list--created--task button__favorite--opt--list--created--task w-dropdown-link">Favorite</a>
-                    <a href="#" class="button__opt--list--created--task button__delete--opt--list--created--task w-dropdown-link">Delete</a>
-                    <a href="#" class="button__opt--list--created--task button__edit--opt--list--created--task w-dropdown-link">Edit</a>
-                    <a href="#" class="button__opt--list--created--task button__move--to--finished--opt--list--created--task w-dropdown-link">Move to finished</a>
-                  </nav>
+              <div class="button__opt--created--task w-dropdown">
+                <div class="dropdown-toggle w-dropdown-toggle" aria-expanded="false" role="button">
+                  <div class="task-text-block text-block"></div>
                 </div>
+                <nav class="task__progress--opt w-dropdown-list">
+                  <a href="#" class="button__opt--list--created--task button__favorite--opt--list--created--task w-dropdown-link">Favorite</a>
+                  <a href="#" class="button__opt--list--created--task button__delete--opt--list--created--task w-dropdown-link">Delete</a>
+                  <a href="#" class="button__opt--list--created--task button__edit--opt--list--created--task w-dropdown-link">Edit</a>
+                  <a href="#" class="button__opt--list--created--task button__move--to--finished--opt--list--created--task w-dropdown-link">Move to finished</a>
+                </nav>
               </div>
+            </div>
             </div>
             <div class="w-layout-blockcontainer in__progress--img---container w-container">
               <img src="${taskImg}" loading="lazy" alt="" class="in__progress-img" />
@@ -165,7 +192,7 @@ class Model {
         </div>`;
       } else {
         task = `
-        <div id="created__task--${index} "class=" w-layout-blockcontainer main__container--2 w-container" data-task-id= "${taskId}">
+        <div id="created__task--${index} "class=" w-layout-blockcontainer ${taskSectionClass}-task main__container--2 w-container" data-task-id= "${taskId}">
           <div class="w-layout-blockcontainer main__content--1 main__content--2 w-container">
             <div class="w-layout-blockcontainer container-8 w-container"></div>
             <div class="w-layout-blockcontainer header__in--review w-container">
@@ -208,7 +235,8 @@ class Model {
       `;
       }
 
-      loader(task, taskSectionClass);
+      console.log(taskSectionClass);
+      insertTask(task, taskSectionClass);
     });
   }
 }

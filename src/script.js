@@ -37,7 +37,10 @@ class CheckIt {
     toggleDropdownView.addDropdownToggle();
     addBtnsView.handleAddBtns();
     taskView.handleOptBtns(this.handlers);
-    taskView.handleTaskOrder();
+    taskView.handleTaskOrder(
+      model.loadTasks.bind(model),
+      formView.insertTask.bind(formView)
+    );
 
     formView.addGetFormActiveBtn();
     formView.addGetImg();
