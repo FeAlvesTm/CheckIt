@@ -55,22 +55,6 @@ class Model {
     return taskInfo;
   }
 
-  sortTasks(order, tasksArr) {
-    let sortedTasks = [...tasksArr];
-
-    if (order === "Descending") {
-      sortedTasks.sort((a, b) => a.index - b.index);
-      console.log(this.tasks);
-    }
-    if (order === "Ascending") {
-      sortedTasks.sort((a, b) => b.index - a.index);
-      console.log(this.tasks);
-    }
-
-    console.log(order);
-    return sortedTasks;
-  }
-
   deleteTask(taskId) {
     console.log(this.tasks);
 
@@ -114,7 +98,44 @@ class Model {
     localStorage.setItem("tasks", stringifiedTasks);
   }
 
-  loadTasks(insertTask, order = null, section = null) {
+  sortTasks(order, tasksArr, typeOfOrder) {
+    let sortedTasks = [...tasksArr];
+
+    if (typeOfOrder === "index") {
+      if (order === "Descending") {
+        sortedTasks.sort((a, b) => a.index - b.index);
+        console.log(this.tasks);
+      }
+      if (order === "Ascending") {
+        sortedTasks.sort((a, b) => b.index - a.index);
+      }
+
+      console.log(order);
+      return sortedTasks;
+    }
+    if (typeOfOrder === "priority") {
+      const priorityLevels = { Low: 1, Medium: 2, High: 3 };
+      if (order === "Ascending") {
+        sortedTasks.sort(
+          (a, b) =>
+            priorityLevels[a.taskPriority] - priorityLevels[b.taskPriority]
+        );
+      }
+      if (order === "Descending") {
+        sortedTasks.sort(
+          (a, b) =>
+            priorityLevels[b.taskPriority] - priorityLevels[a.taskPriority]
+        );
+      }
+      console.log(order);
+      console.log(typeOfOrder);
+
+      console.log(sortedTasks);
+      return sortedTasks;
+    }
+  }
+
+  loadTasks(insertTask, order = null, typeOfOrder, section = null) {
     if (!this.tasks) {
       console.log("no tasks");
       return;
@@ -129,7 +150,7 @@ class Model {
     }
 
     if (order) {
-      tasksToRender = this.sortTasks(order, tasksToRender);
+      tasksToRender = this.sortTasks(order, tasksToRender, typeOfOrder);
     }
 
     tasksToRender.forEach((parsedTask) => {

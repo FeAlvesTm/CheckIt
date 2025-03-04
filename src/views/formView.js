@@ -133,7 +133,7 @@ class FormView extends View {
     if (this.formActiveBtn) {
       console.log(this.formActiveBtn);
       if (this.formActiveBtn.classList.contains("btn_low")) {
-        this.priority = "low";
+        this.priority = "Low";
       } else if (this.formActiveBtn.classList.contains("btn_medium")) {
         this.priority = "Medium";
       } else if (this.formActiveBtn.classList.contains("btn__high")) {

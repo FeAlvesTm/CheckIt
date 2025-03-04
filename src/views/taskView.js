@@ -79,7 +79,7 @@ class TaskView extends View {
           <div class="w-layout-blockcontainer in__progress-description w-container">
             <div class="task__progress-description">${taskDescription}</div>
           </div>
-          <button class="save__btn">Save</button>
+          <button class="save__btn hidden">Save</button>
 
         </div>
       </div>`;
@@ -234,9 +234,11 @@ class TaskView extends View {
         if (!e.target.dataset.order) return;
         const order = e.target.dataset.order;
         const section = e.target.dataset.section;
+        const type = e.target.dataset.type;
 
         console.log(section);
         console.log(order);
+        console.log(type);
 
         if (!section) {
           const allTasksNodelist = document.querySelectorAll(
@@ -244,13 +246,13 @@ class TaskView extends View {
           );
           Array.from(allTasksNodelist).forEach((task) => task.remove());
 
-          taskOrderHandler(insertTask, order);
+          taskOrderHandler(insertTask, order, type);
         } else {
           console.log("aaaaaaaaaaaaaaaaaaaaaaa");
           const tasksInSection = document.querySelectorAll(`.${section}-task`);
           Array.from(tasksInSection).forEach((task) => task.remove());
 
-          taskOrderHandler(insertTask, order, section);
+          taskOrderHandler(insertTask, order, type, section);
         }
       })
     );

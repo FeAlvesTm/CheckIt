@@ -20,7 +20,6 @@ class View {
     this.task = taskHTML;
     console.log(taskHTML);
   }
-
   static getTask() {
     return this.task;
   }
