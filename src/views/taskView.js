@@ -243,17 +243,13 @@ class TaskView extends View {
             ".main__container--2"
           );
           Array.from(allTasksNodelist).forEach((task) => task.remove());
-          taskOrderHandler(insertTask, order);
 
-          console.log(order);
-          console.log(section);
+          taskOrderHandler(insertTask, order);
         } else {
           console.log("aaaaaaaaaaaaaaaaaaaaaaa");
           const tasksInSection = document.querySelectorAll(`.${section}-task`);
           Array.from(tasksInSection).forEach((task) => task.remove());
-          console.log(order);
-          console.log(tasksInSection);
-          console.log(section);
+
           taskOrderHandler(insertTask, order, section);
         }
       })
